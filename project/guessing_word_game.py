@@ -39,9 +39,7 @@ def guess_word(person, word_bank):
         if not correct_guess:
             ending_game =  letter_guess[current_player]
             print(f"The ending score is {current_player}: {ending_game}")
-     # Graphing the game's scores
-    plt.bar(x = "Players", y = "Scores")
-
-
+        if correct_guess or tries_left ==0:
+            break
 guess_word(person, word_bank)
 
