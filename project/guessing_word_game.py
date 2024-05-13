@@ -1,6 +1,7 @@
 # Creating a list to hold the word bank
 import random
 from collections import Counter
+import matplotlib.pyplot as plt
 person = ["Player #1","Player #2"]
 word_bank = ["Australia", "Mexico", "Armenia", "Albania", "Belize", "Belgium", "Nepal", "Bulgaria", "Norway", "Canada","Cambodia", "Chile", "China", "Panama", "Poland", "Denmark","Russia","Egypt","Serbia","Singapore","Fiji","France", "Sweden","Greece","Ireland", "Israel","Yemen", "Liberia"]
 
@@ -8,7 +9,8 @@ word_bank = ["Australia", "Mexico", "Armenia", "Albania", "Belize", "Belgium", "
 # Welcoming message to players and giving them instructions of how to play
 def guess_word(person, word_bank):
     print("Hello players! You are now a player of my mystery guessing game. Each time you pick a letter in our mystery word and the program will tell you if that letter is in the word or not. You get 3 tries to guess the word using only the clues from previous letter guesses. At the end of one player's turn, it becomes a second player's turn. Each time you guess a letter that's one point added to your score. Lowest score wins.")
-   
+    # Create an empty dictionary for final scores
+    final_scores = {}
     # Creating a loop where the program selects a word from the bank and loops from player to player to make a letter guess.
     for current_player in person: 
         chosen_word = random.choice(word_bank)
@@ -41,5 +43,14 @@ def guess_word(person, word_bank):
             print(f"The ending score is {current_player}: {ending_game}")
         if correct_guess or tries_left ==0:
             break
+# Create a function to graph the final scores
+def plot_final_scores(scores):
+    players = list(scores.keys())
+    scores_values = list(scores.values())
+    plt.bar(players, score_values)
+    plt.xlabel('Player')
+    plt.ylabel('Final score')
+    plt.title('Final score of the country guessing game')
+    plt.show()
 guess_word(person, word_bank)
 
