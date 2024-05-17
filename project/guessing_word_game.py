@@ -11,12 +11,17 @@ def guess_word(person, word_bank):
     print("Hello players! You are now a player of my mystery guessing game. Each time you pick a letter in our mystery word and the program will tell you if that letter is in the word or not. You get 3 tries to guess the word using only the clues from previous letter guesses. At the end of one player's turn, it becomes a second player's turn. Each time you guess a letter that's one point added to your score. Lowest score wins.")
     # Create an empty dictionary for final scores
     final_scores = {}
+    game_points = {player: [] for player in person}
+
     # Creating a loop where the program selects a word from the bank and loops from player to player to make a letter guess.
-    for current_player in person: 
-        chosen_word = random.choice(word_bank)
-        tries_left = 3
-        letter_guess = Counter()
-        correct_guess = False
+    continued_game = True
+    while continued_game:
+        for current_player in person: 
+            chosen_word = random.choice(word_bank)
+            tries_left = 3
+            letter_guess = Counter()
+            correct_guess = False
+
         # This keeps track of the number of guesses each player makes, also it allows the players to continue guessing until they run out of tries. This is when it prompts players for a letter input.
         while tries_left > 0:
             print("Number of tries left:",tries_left)
@@ -41,8 +46,11 @@ def guess_word(person, word_bank):
         if not correct_guess:
             ending_game =  letter_guess[current_player]
             print(f"The ending score is {current_player}: {ending_game}")
+        
         if correct_guess or tries_left ==0:
+            continued_game = False
             break
+    return game_points
 # Create a function to graph the final scores
 def plot_final_scores(scores):
     players = list(scores.keys())
@@ -53,4 +61,5 @@ def plot_final_scores(scores):
     plt.title('Final score of the country guessing game')
     plt.show()
 guess_word(person, word_bank)
+plot_ending_scores(scores)
 
